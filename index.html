@@ -1,14 +1,12 @@
 <canvas id="ctx" width="500" height="500" style="border:1px solid #000000;"></canvas>
 
-// This is a note.
-
 <script>
 var ctx = document.getElementById("ctx").getContext("2d");
 ctx.font = '30px Arial';
 
 var HEIGHT = 500;
 var WIDTH = 500;
-var REFRESH_RATE = 100;
+var REFRESH_RATE = 50;
 
 var timeWhenGameStarted = Date.now();
 
@@ -57,7 +55,7 @@ document.onmousemove = function(mouse){
 
 updateEntity = function (something) {   
     updateEntityPostion(something);
-    drawEntity(something);
+    drawEnemy(something);
 }
 
 updateEntityPostion = function(something){
@@ -73,9 +71,21 @@ updateEntityPostion = function(something){
     }
 }
 
-drawEntity = function(something){
-    ctx.fillText(something.name,something.x,something.y);      
+drawPlayer = function(something){
+    ctx.save();
+    ctx.fillStyle = 'green'
+    ctx.fillRect(something.x-10,something.y-10,20,20); 
+    ctx.restore;     
 }
+
+drawEnemy = function(something){
+    ctx.save();
+    ctx.fillStyle = 'red'
+    ctx.fillRect(something.x-15,something.y-15,30,30);
+    ctx.restore();     
+}
+
+
 
 update = function (){
     ctx.clearRect(0,0,WIDTH,HEIGHT);
@@ -98,7 +108,7 @@ update = function (){
         }
     }
     
-    drawEntity(player);
+    drawPlayer(player);
     ctx.fillText(player.hp + " HP",0,30);
 }
 
