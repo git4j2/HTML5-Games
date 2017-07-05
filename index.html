@@ -140,9 +140,22 @@ update = function (){
     ctx.fillText(player.hp + " HP",0,30);
 }
 
-Enemy('E1',150,350,10,15,30,30);
-Enemy('E2',250,350,10,-15,20,20);
-Enemy('E3',250,150,10,-8,40,10);
+randomlyGenerateEnemy = function () {
+    // Math.random() - Generates a random number between 0-10
+    var x = Math.random() * WIDTH;
+    var y = Math.random() * HEIGHT;
+    var height = 10 + Math.random() * 30;
+    var width = 10 + Math.random() * 30;
+    var id = Math.random();
+    var spdX = 5 + Math.random() * 5;
+    var spdY = 5 + Math.random() * 5;
+
+    Enemy(id,x,y,spdX,spdY,width,height);
+}
+
+randomlyGenerateEnemy();
+randomlyGenerateEnemy();
+randomlyGenerateEnemy();
 
 setInterval(update,REFRESH_RATE);
 
