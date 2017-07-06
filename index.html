@@ -10,6 +10,8 @@ var REFRESH_RATE = 40;
 
 var timeWhenGameStarted = Date.now();
 
+var frameCount = 0;
+
 var player = {
     x:50,
     spdX:30,
@@ -100,7 +102,8 @@ updateEntityPostion = function(something){
         something.spdY = -something.spdY;
     }
 }
-var frameCount = 0;
+
+
 
 testCollisionRectRect = function(rect1,rect2) {
     return rect1.x <= rect2.x + rect2.width
@@ -118,11 +121,11 @@ drawEntity = function(something){
 
 update = function (){
     ctx.clearRect(0,0,WIDTH,HEIGHT);
+
     frameCount++;
 
     if(frameCount % 100 === 0)
         randomlyGenerateEnemy();
-
 
     for(var key in enemyList){
         updateEntity(enemyList[key]);
@@ -131,22 +134,31 @@ update = function (){
 
         if (isColliding){
             player.hp = player.hp - 1;
-            
-            if(player.hp <= 0){
-                var timeSurvived = Date.now() - timeWhenGameStarted;
-
-                console.log("You Lost! You survived for " + timeSurvived + " ms");
-                timeWhenGameStarted = Date.now();
-                player.hp = 10;
-            } 
-        }
+        } 
     }
-    
+
+    if(player.hp <= 0){
+        var timeSurvived = Date.now() - timeWhenGameStarted;
+        console.log("You Lost! You survived for " + timeSurvived + " ms");
+        startNewGame();
+    }
+
     drawEntity(player);
     ctx.fillText(player.hp + " HP",0,30);
 }
 
-randomlyGenerateEnemy = function () {
+startNewGame = function(){
+    player.hp = 10;
+    timeWhenGameStarted = Date.now();
+    frameCount = 0;
+    enemyList = {};
+
+    randomlyGenerateEnemy();
+    randomlyGenerateEnemy();
+    randomlyGenerateEnemy();
+}
+
+randomlyGenerateEnemy = function(){
     // Math.random() - Generates a random number between 0-10
     var x = Math.random() * WIDTH;
     var y = Math.random() * HEIGHT;
@@ -159,9 +171,7 @@ randomlyGenerateEnemy = function () {
     Enemy(id,x,y,spdX,spdY,width,height);
 }
 
-randomlyGenerateEnemy();
-randomlyGenerateEnemy();
-randomlyGenerateEnemy();
+startNewGame();
 
 setInterval(update,REFRESH_RATE);
 
