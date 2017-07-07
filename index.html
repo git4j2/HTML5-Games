@@ -213,6 +213,15 @@ update = function (){
 
     for(var key in bulletList){
         updateEntity(bulletList[key]);
+
+        for(var key2 in enemyList){
+            var isColliding = testCollisionEntity(bulletList[key],enemyList[key2]);
+            if(isColliding){
+                delete bulletList[key];
+                delete enemyList[key2];
+                break;
+            }
+        }
     }
 
     for(var key in upgradeList){
@@ -250,6 +259,7 @@ startNewGame = function(){
     score = 0;
     enemyList = {};
     upgradeList = {};
+    bulletlist = {};
 
     randomlyGenerateEnemy();
     randomlyGenerateEnemy();
