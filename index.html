@@ -83,7 +83,7 @@ randomlyGenerateEnemy = function(){
     Enemy(id,x,y,spdX,spdY,width,height);
 }
 
-Upgrade = function (id,x,y,spdX,spdY,width,height){
+Upgrade = function (id,x,y,spdX,spdY,width,height,category){
     var upgrade = {
         x:x,
         spdX:spdX,
@@ -94,6 +94,7 @@ Upgrade = function (id,x,y,spdX,spdY,width,height){
         width:width,
         height:height,
         color:'orange',
+        category:category,
         };
 
         upgradeList[id] = upgrade;     
@@ -109,7 +110,13 @@ randomlyGenerateUpgrade = function(){
     var spdX = 0;
     var spdY = 0;
 
-    Upgrade(id,x,y,spdX,spdY,width,height);
+    if(Math.random()<0.5){
+        var category = 'low';
+    } else{
+        var category = 'high';
+    }
+
+    Upgrade(id,x,y,spdX,spdY,width,height,category);
 }
 
 Bullet = function (id,x,y,spdX,spdY,width,height){
@@ -240,7 +247,11 @@ update = function (){
         updateEntity(upgradeList[key]);
         var isColliding = testCollisionEntity(player,upgradeList[key]);
         if (isColliding){
-            score += 1000;
+            if(upgradeList[key].category === 'low')
+                score += 1000;
+            if(upgradeList[key].category === 'high')
+                score += 10000;
+            
             delete upgradeList[key];
         }
     }
