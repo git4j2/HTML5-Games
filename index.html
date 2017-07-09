@@ -28,6 +28,8 @@ var player = {
     width:20,
     height:20,
     color:'green',
+    //
+    atkSpd:5,
 };
 
 getDistanceBetweenEntity = function (entity1,entity2) {
@@ -219,7 +221,7 @@ update = function (){
     if(frameCount % 75 === 0) // Every 3 sec?
         randomlyGenerateUpgrade();
 
-    if(frameCount % 25 === 0) // Every 1 sec?
+    if(frameCount % Math.round(25/player.atkSpd) === 0) // Every 1 sec?
     randomlyGenerateBullet();
 
     for(var key in bulletList){
