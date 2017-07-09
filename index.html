@@ -83,8 +83,8 @@ randomlyGenerateEnemy = function(){
     Enemy(id,x,y,spdX,spdY,width,height);
 }
 
-Upgrade = function (id,x,y,spdX,spdY,width,height,category){
-    var upgrade = {
+Upgrade = function (id,x,y,spdX,spdY,width,height,category,color){
+    var asd = {
         x:x,
         spdX:spdX,
         y:y,
@@ -93,11 +93,11 @@ Upgrade = function (id,x,y,spdX,spdY,width,height,category){
         id:id,
         width:width,
         height:height,
-        color:'orange',
+        color:color,
         category:category,
         };
 
-        upgradeList[id] = upgrade;     
+        upgradeList[id] = asd;     
 }
 
 randomlyGenerateUpgrade = function(){
@@ -112,11 +112,13 @@ randomlyGenerateUpgrade = function(){
 
     if(Math.random()<0.5){
         var category = 'low';
+        var color = 'orange';
     } else{
         var category = 'high';
+        var color = 'purple';
     }
 
-    Upgrade(id,x,y,spdX,spdY,width,height,category);
+    Upgrade(id,x,y,spdX,spdY,width,height,category,color);
 }
 
 Bullet = function (id,x,y,spdX,spdY,width,height){
