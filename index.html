@@ -29,7 +29,7 @@ var player = {
     height:20,
     color:'green',
     //
-    atkSpd:5,
+    atkSpd:1,
 };
 
 getDistanceBetweenEntity = function (entity1,entity2) {
@@ -113,10 +113,10 @@ randomlyGenerateUpgrade = function(){
     var spdY = 0;
 
     if(Math.random()<0.5){
-        var category = 'low';
+        var category = 'score';
         var color = 'orange';
     } else{
-        var category = 'high';
+        var category = 'atkSpd';
         var color = 'purple';
     }
 
@@ -251,11 +251,10 @@ update = function (){
         updateEntity(upgradeList[key]);
         var isColliding = testCollisionEntity(player,upgradeList[key]);
         if (isColliding){
-            if(upgradeList[key].category === 'low')
+            if(upgradeList[key].category === 'score')
                 score += 1000;
-            if(upgradeList[key].category === 'high')
-                score += 10000;
-            
+            if(upgradeList[key].category === 'atkSpd')
+                player.atkSpd += 3;
             delete upgradeList[key];
         }
     }
