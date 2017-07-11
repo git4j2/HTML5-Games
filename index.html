@@ -30,6 +30,7 @@ var player = {
     color:'green',
     //
     atkSpd:1,
+    attackCounter:0,
 };
 
 getDistanceBetweenEntity = function (entity1,entity2) {
@@ -209,6 +210,14 @@ drawEntity = function(something){
     ctx.restore();     
 }
 
+document.onclick = function(mouse){
+    if(player.attackCounter > 25){   // Every 1 sec?
+        randomlyGenerateBullet();
+        player.attackCounter = 0;
+    }
+}
+
+counter = 0;
 update = function (){
     ctx.clearRect(0,0,WIDTH,HEIGHT);
 
@@ -221,8 +230,7 @@ update = function (){
     if(frameCount % 75 === 0) // Every 3 sec?
         randomlyGenerateUpgrade();
 
-    if(frameCount % Math.round(25/player.atkSpd) === 0) // Every 1 sec?
-    randomlyGenerateBullet();
+    player.attackCounter += player.atkSpd;
 
     for(var key in bulletList){
         updateEntity(bulletList[key]);
