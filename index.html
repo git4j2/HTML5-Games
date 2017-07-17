@@ -219,12 +219,18 @@ document.onclick = function(mouse){
 
 document.oncontextmenu = function(mouse){
     if(player.attackCounter > 50){
-        randomlyGenerateBullet(player,player.aimAngle - 5);
-        randomlyGenerateBullet(player,player.aimAngle);    
-        randomlyGenerateBullet(player,player.aimAngle + 5);
+        //randomlyGenerateBullet(player,angle - 5);
+        //randomlyGenerateBullet(player,angle);
+        //randomlyGenerateBullet(player,angle + 5);
+        //angle++;
 
+        for(var angle = 0; angle < 360; angle++){
+           randomlyGenerateBullet(player,angle);
+        }
+        
         player.attackCounter = 0;        
     }
+    mouse.preventDefault();
 }
 
 
