@@ -304,12 +304,14 @@ update = function (){
 
         //Loop thru all Enemies
         for(var key2 in enemyList){
+            /*
             var isColliding = bulletList[key].testCollision(enemyList[key2]);
             if(isColliding){
                 toRemove = true;
                 delete enemyList[key2];
                 break;
             }
+            */
         }
 
         if(toRemove){
@@ -347,7 +349,7 @@ update = function (){
         console.log("You Lost! You survived for " + timeSurvived + " ms");
         startNewGame();
     }
-    
+
     player.update();
     ctx.fillText(player.hp + " HP",0,30);
     ctx.fillText('Score: ' + score,200,30);
